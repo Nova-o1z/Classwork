@@ -57,7 +57,7 @@ while running:
         if sunstay_counter >= sunstay_time:
             sun_set = True 
 
-  # Adjust sky color 
+    # Adjust sky color 
     if sun_set and sun < HEIGHT + 50:
         # Reduce color
         if sky_r > 49:
@@ -179,10 +179,7 @@ while running:
         cloud_x2 = -100
     if bird_x > WIDTH + 40:
         bird_x = -100
-    if sun > HEIGHT + 50:
-        sun = -1000
-    if moon < -50:
-        moon = 700
+    
 
 
     # Must be the last two lines

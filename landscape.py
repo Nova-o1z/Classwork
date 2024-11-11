@@ -1,5 +1,4 @@
 import pygame
-import math
 
 pygame.init()
 
@@ -15,15 +14,15 @@ clock = pygame.time.Clock()
 
 cloud_x = 100
 cloud_x2 = 300
-bird_offset_x = 150
+bird_x = 230
 sun = 90
-moon = HEIGHT 
-moon_spot = 570
+moon = 700
 
 # Cloud and sun speed
 cloud_speed = 3
 sun_speed = 1.9
 moon_speed = 1
+bird_speed = 3
 
 #SUN AND MOON STATES
 sun_set = False  # To check if the sun is setting
@@ -50,6 +49,7 @@ while running:
     cloud_x2 += cloud_speed
     sun += sun_speed
     moon -= moon_speed
+    bird_x += bird_speed
 
     #SUN TRACKER
     if not sun_set:
@@ -57,9 +57,9 @@ while running:
         if sunstay_counter >= sunstay_time:
             sun_set = True 
 
-  # Adjust sky color gradually
+  # Adjust sky color 
     if sun_set and sun < HEIGHT + 50:
-        # Reduce color values gradually until they reach target values
+        # Reduce color
         if sky_r > 49:
             sky_r -= 1
         if sky_g > 78:
@@ -75,7 +75,7 @@ while running:
         if cloud_b > 169:
             cloud_b -= 1
 
-    # Pack the cloud color into a tuple for drawing
+    # re-fresh cloud color
     cloud_color = (cloud_r, cloud_g, cloud_b)
 
     # Start rising the moon after sun sets
@@ -90,7 +90,7 @@ while running:
     # ONCE THE MOON reachs the top --> RESET
     if moon < -50:
         sun = 90
-        moon = HEIGHT
+        moon = 700
         sky_r = 163
         sky_g = 209
         sky_b = 255
@@ -104,9 +104,6 @@ while running:
     # Update the background color here
     screen.fill((sky_r, sky_g, sky_b)) 
 
-
-
-    
     # MOON & stars
     if moon_rising:
         pygame.draw.circle(screen, (220, 220, 220), (549, moon), 50)
@@ -163,7 +160,7 @@ while running:
     pygame.draw.ellipse(screen, "white", (464, 358, 10, 20))
 
     pygame.draw.circle(screen, "white", (430, 367), 50, draw_top_right=True, draw_top_left=True)
-    pygame.draw.circle(screen, "red", (430, 367), 50, draw_top_right=True, draw_top_left=True, width=3)
+    pygame.draw.circle(screen, "red", (430, 367), 50, draw_top_right=True, draw_top_left=True, width=5)
 
     # BEACH BLANKET
     pygame.draw.rect(screen, (105, 160, 214), (331, 438, 88, 35))
@@ -171,7 +168,7 @@ while running:
     pygame.draw.rect(screen, "white", (414, 438, 5, 35))
 
     # BIRDS
-    bird_x = cloud_x + bird_offset_x
+
     pygame.draw.circle(screen, (0, 0, 0), (bird_x, 130), 25, draw_top_right=True, draw_top_left=True, width=3)
     pygame.draw.circle(screen, (0, 0, 0), (bird_x + 48, 128), 25, draw_top_right=True, draw_top_left=True, width=3)
 
@@ -180,11 +177,12 @@ while running:
         cloud_x = -100
     if cloud_x2 > WIDTH + 40:
         cloud_x2 = -100
+    if bird_x > WIDTH + 40:
+        bird_x = -100
     if sun > HEIGHT + 50:
         sun = -1000
     if moon < -50:
-        moon = HEIGHT
-        
+        moon = 700
 
 
     # Must be the last two lines

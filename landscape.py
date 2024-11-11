@@ -101,7 +101,7 @@ while running:
         moon_rising = False
         sunstay_counter = 0
 
-    # Update the background color here
+    # Update the background color
     screen.fill((sky_r, sky_g, sky_b)) 
 
     # MOON & stars
